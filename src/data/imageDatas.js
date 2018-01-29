@@ -1,81 +1,82 @@
-[
+
+export const imageData = [
   {
-    "fileName": "1.jpg",
+    "url": "./images/1.jpg",
     "title": "这是图片一",
     "desc": "这是描述一"
   },
   {
-    "fileName": "2.jpg",
+    "url": "./images/2.jpg",
     "title": "这是图片二",
     "desc": "这是描述一"
   },
   {
-    "fileName": "3.jpg",
+    "url": "./images/3.jpg",
     "title": "这是图片三",
     "desc": "这是描述三"
   },
   {
-    "fileName": "4.jpg",
+    "url": "./images/4.jpg",
     "title": "这是图片四",
     "desc": "这是描述四"
   },
   {
-    "fileName": "5.jpg",
+    "url": "./images/5.jpg",
     "title": "这是图片五",
     "desc": "这是描述五"
   },
   {
-    "fileName": "6.jpg",
+    "url": "./images/6.jpg",
     "title": "这是图片六",
     "desc": "这是描述六"
   },
   {
-    "fileName": "7.jpg",
+    "url": "./images/7.jpg",
     "title": "这是图片七",
     "desc": "这是描述七"
   },
   {
-    "fileName": "8.jpg",
+    "url": "./images/8.jpg",
     "title": "这是图片八",
     "desc": "这是描述八"
   },
   {
-    "fileName": "9.jpg",
+    "url": "./images/9.jpg",
     "title": "这是图片九",
     "desc": "这是描述九"
   },
   {
-    "fileName": "10.jpg",
+    "url": "./images/10.jpg",
     "title": "这是图片十",
     "desc": "这是描述十"
   },
   {
-    "fileName": "11.jpg",
+    "url": "./images/11.jpg",
     "title": "这是图片十一",
     "desc": "这是描述十一"
   },
   {
-    "fileName": "12.jpg",
+    "url": "./images/12.jpg",
     "title": "这是图片十二",
     "desc": "这是描述十二"
   },
   {
-    "fileName": "13.jpg",
+    "url": "./images/13.jpg",
     "title": "这是图片十三",
     "desc": "这是描述十三"
   },
   {
-    "fileName": "14.jpg",
+    "url": "./images/14.jpg",
     "title": "这是图片十四",
     "desc": "这是描述十四"
   },
   {
-    "fileName": "15.jpg",
+    "url": "./images/15.jpg",
     "title": "这是图片十五",
     "desc": "这是描述十五"
   },
   {
-    "fileName": "16.jpg",
+    "url": "./images/16.jpg",
     "title": "这是图片十六",
     "desc": "这是描述十六"
   }
