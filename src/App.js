@@ -53,6 +53,9 @@ class App extends Component {
     this.Constant.leftPos.leftSecX[1] = halfAppW - halfImgW * 3;
     this.Constant.leftPos.rightSecX[0] = halfAppW + halfImgW;
     this.Constant.leftPos.rightSecX[1] = appW - halfImgW;
+    this.Constant.leftPos.y[0] = -halfImgH;
+    this.Constant.leftPos.y[1] = appH + halfImgH;
+
   }
   render() {
     let imgFigure = [];
