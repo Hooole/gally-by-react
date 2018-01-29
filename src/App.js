@@ -7,6 +7,16 @@ import "./App.css";
 class App extends Component {
   constructor(props) {
     super(props);
+    this.state = {
+      imgsArrangeArr: [
+        /*{
+          pos:{
+            left:0,
+            top:0
+          }
+        }*/
+      ]
+    }
     this.Constant = {
       //中心图片位置
       centerPos: {
@@ -25,6 +35,13 @@ class App extends Component {
         y: [0, 0]
       }
     };
+  }
+  /*
+    *重新布局所有图片
+    @param centerIndex指定居中排布哪个图片
+  */
+  rearrange(centerIndex) {
+
   }
   /*
     组件渲染完成后执行的操作
@@ -48,18 +65,33 @@ class App extends Component {
       left: halfAppW - halfImgW,
       top: halfAppH - halfImgH
     };
-
+    // 计算水平位置图片的位置区
     this.Constant.leftPos.leftSecX[0] = -halfImgW;
     this.Constant.leftPos.leftSecX[1] = halfAppW - halfImgW * 3;
     this.Constant.leftPos.rightSecX[0] = halfAppW + halfImgW;
     this.Constant.leftPos.rightSecX[1] = appW - halfImgW;
     this.Constant.leftPos.y[0] = -halfImgH;
     this.Constant.leftPos.y[1] = appH + halfImgH;
+    // 计算上侧图片的位置区
+    this.Constant.topPos.x[0] = halfAppW - imgFigureW;
+    this.Constant.topPos.x[1] = halfAppW;
+    this.Constant.topPos.y[0] = -halfImgH;
+    this.Constant.topPos.y[0] = halfAppH - halfImgH * 3;
 
+    this.rearrange(0);
+    console.log(this.Constant);
   }
   render() {
     let imgFigure = [];
     imageData.forEach((value, index) => {
+      if (!this.state.imgsArrangeArr[index]) {
+        this.state.imgsArrangeArr[index] = {
+          pos: {
+            left: 0,
+            top: 0
+          }
+        }
+      }
       imgFigure.push(
         <ImgFigure data={value} key={index} ref={"imgFigure" + index} />
       );
