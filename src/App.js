@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { findDOMNode } from "react-dom";
 import ImgFigure from "./components/imgFigure.js";
 import { imageData } from "./data/imageDatas.js";
+import { getRangeRandom, get30Deg } from "./base/utils.js";
 import "./App.css";
 
 class App extends Component {
@@ -13,10 +14,12 @@ class App extends Component {
           pos:{
             left:0,
             top:0
-          }
+          },
+          rotate:0, //旋转角度
+          isInverse:false // 图片正反面
         }*/
       ]
-    }
+    };
     this.Constant = {
       //中心图片位置
       centerPos: {
@@ -41,7 +44,60 @@ class App extends Component {
     @param centerIndex指定居中排布哪个图片
   */
   rearrange(centerIndex) {
+    let { imgsArrangeArr } = this.state;
+    let { centerPos, leftPos, topPos } = this.Constant;
+    /*
+      *根据传入的索引获取到居中的图片
+      *设置居中图片的位置
+    */
+    let center = imgsArrangeArr.splice(centerIndex, 1);
+    center[0] = {
+      pos: centerPos,
+      rotate: 0
+    };
+    let imgsArrangeTopArr = [],
+      topImgNum = Math.floor(Math.random() * 2), //取一个或者不取
+      topImgArrangeIndex = Math.floor(Math.random() * imgsArrangeArr.length); // 标记布局上侧图片的数组索引
+    imgsArrangeTopArr = imgsArrangeArr.splice(topImgArrangeIndex, topImgNum);
+    /*设置位于上侧的图片位置信息*/
+    imgsArrangeTopArr.forEach((value, index) => {
+      imgsArrangeTopArr[index] = {
+        pos: {
+          top: getRangeRandom(topPos.y[0], topPos.y[1]),
+          left: getRangeRandom(topPos.x[0], topPos.x[1])
+        },
+        rotate: get30Deg()
+      };
+    });
+    /*设置位于左右侧的图片位置信息*/
+    for (let i = 0, j = imgsArrangeArr.length, k = j / 2; i < j; i++) {
+      let xSec = i < k ? leftPos.leftSecX : leftPos.rightSecX;
+      imgsArrangeArr[i] = {
+        pos: {
+          top: getRangeRandom(leftPos.y[0], leftPos.y[1]),
+          left: getRangeRandom(xSec[0], xSec[1])
+        },
+        rotate: get30Deg()
+      };
+    }
+    if (imgsArrangeTopArr && imgsArrangeTopArr[0]) {
+      imgsArrangeArr.splice(topImgArrangeIndex, 0, imgsArrangeTopArr[0]);
+    }
+    imgsArrangeArr.splice(centerIndex, 0, center[0]);
+    this.setState({ imgsArrangeArr });
+  }
 
+  /*
+    *翻转图片
+    *params index 传入当前被执行inverse操作的图片对应信息的index值
+  */
+  inverse(index) {
+    let { imgsArrangeArr } = this.state;
+    console.log(imgsArrangeArr)
+    imgsArrangeArr[index].isInverse = !imgsArrangeArr[index].isInverse;
+    this.setState({
+      imgsArrangeArr
+    });
   }
   /*
     组件渲染完成后执行的操作
@@ -71,29 +127,37 @@ class App extends Component {
     this.Constant.leftPos.rightSecX[0] = halfAppW + halfImgW;
     this.Constant.leftPos.rightSecX[1] = appW - halfImgW;
     this.Constant.leftPos.y[0] = -halfImgH;
-    this.Constant.leftPos.y[1] = appH + halfImgH;
+    this.Constant.leftPos.y[1] = appH - halfImgH;
     // 计算上侧图片的位置区
     this.Constant.topPos.x[0] = halfAppW - imgFigureW;
     this.Constant.topPos.x[1] = halfAppW;
     this.Constant.topPos.y[0] = -halfImgH;
-    this.Constant.topPos.y[0] = halfAppH - halfImgH * 3;
+    this.Constant.topPos.y[1] = halfAppH - halfImgH * 3;
 
     this.rearrange(0);
-    console.log(this.Constant);
   }
   render() {
     let imgFigure = [];
     imageData.forEach((value, index) => {
       if (!this.state.imgsArrangeArr[index]) {
+        // eslint-disable-next-line
         this.state.imgsArrangeArr[index] = {
           pos: {
             left: 0,
             top: 0
-          }
-        }
+          },
+          rotate: 0,
+          isInverse: false
+        };
       }
       imgFigure.push(
-        <ImgFigure data={value} key={index} ref={"imgFigure" + index} />
+        <ImgFigure
+          data={value}
+          key={index}
+          ref={"imgFigure" + index}
+          arrange={this.state.imgsArrangeArr[index]}
+          inverse= {this.inverse.bind(this,index)}
+        />
       );
     });
     return (
