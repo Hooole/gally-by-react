@@ -10,6 +10,7 @@
   height: 100%;
   overflow: hidden;
   background: #dddddd;
+  perspective: 1800px;
 }
 .img-sec .img-figure{
   width:320px;

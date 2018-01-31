@@ -16,7 +16,8 @@ class App extends Component {
             top:0
           },
           rotate:0, //旋转角度
-          isInverse:false // 图片正反面
+          isInverse:false, // 图片正反面
+          isCenter:false  // 图片居中
         }*/
       ]
     };
@@ -53,7 +54,8 @@ class App extends Component {
     let center = imgsArrangeArr.splice(centerIndex, 1);
     center[0] = {
       pos: centerPos,
-      rotate: 0
+      rotate: 0,
+      isCenter:true
     };
     let imgsArrangeTopArr = [],
       topImgNum = Math.floor(Math.random() * 2), //取一个或者不取
@@ -66,7 +68,8 @@ class App extends Component {
           top: getRangeRandom(topPos.y[0], topPos.y[1]),
           left: getRangeRandom(topPos.x[0], topPos.x[1])
         },
-        rotate: get30Deg()
+        rotate: get30Deg(),
+        isCenter:false
       };
     });
     /*设置位于左右侧的图片位置信息*/
@@ -77,7 +80,8 @@ class App extends Component {
           top: getRangeRandom(leftPos.y[0], leftPos.y[1]),
           left: getRangeRandom(xSec[0], xSec[1])
         },
-        rotate: get30Deg()
+        rotate: get30Deg(),
+        isCenter:false
       };
     }
     if (imgsArrangeTopArr && imgsArrangeTopArr[0]) {
@@ -92,14 +96,19 @@ class App extends Component {
     *params index 传入当前被执行inverse操作的图片对应信息的index值
   */
   inverse(index) {
-    console.log(index)
     let { imgsArrangeArr } = this.state;
-    console.log(imgsArrangeArr);
     imgsArrangeArr[index].isInverse = !imgsArrangeArr[index].isInverse;
     this.setState({
       imgsArrangeArr
     });
-    console.log(this.state.imgsArrangeArr)
+  }
+
+  /*
+    *居中图片
+    *params index 传入当前需要被居中的index的索引值
+  */ 
+  center(index) {
+    this.rearrange(index)
   }
   /*
     组件渲染完成后执行的操作
@@ -137,9 +146,9 @@ class App extends Component {
     this.Constant.topPos.y[1] = halfAppH - halfImgH * 3;
 
     this.rearrange(0);
+
   }
   render() {
-    console.log("执行了render")
     let imgFigure = [];
     imageData.forEach((value, index) => {
       if (!this.state.imgsArrangeArr[index]) {
@@ -160,6 +169,7 @@ class App extends Component {
           ref={"imgFigure" + index}
           arrange={this.state.imgsArrangeArr[index]}
           inverse= {this.inverse.bind(this,index)}
+          center = {this.center.bind(this,index)}
         />
       );
     });

@@ -7,27 +7,32 @@ class ImgFigure extends Component {
     this.handleClick = this.handleClick.bind(this);
   }
   handleClick(e) {
-    this.props.inverse();
+    if (this.props.arrange.isCenter) {
+      this.props.inverse();
+    } else {
+      this.props.center();
+    }
     e.stopPropagation();
     e.preventDefault();
   }
   getImageStyle() {
     let styleObj = {};
-    console.log(styleObj);
     if (this.props.arrange.pos) {
-      console.log(this.props.arrange)
       styleObj = this.props.arrange.pos;
     }
-    console.log(styleObj);
-    if (this.props.arrange && this.props.arrange.rotate) {
-      styleObj["transform"] = 'rotate('+this.props.arrange.rotate+'deg)';
+    styleObj = JSON.parse(JSON.stringify(styleObj));
+    if (this.props.arrange.rotate) {
+      styleObj[prefixStyle("transform")] = `rotate(${
+        this.props.arrange.rotate
+      }deg)`;
     }
-    console.log(styleObj);
+    if (this.props.arrange.isCenter) {
+      styleObj.zIndex = 101;
+    }
     return styleObj;
   }
   render() {
     let styleObj = this.getImageStyle();
-    // console.log(styleObj);
     let data = this.props.data;
     let imgfigureClassName = "img-figure";
 
