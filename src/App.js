@@ -92,12 +92,14 @@ class App extends Component {
     *params index 传入当前被执行inverse操作的图片对应信息的index值
   */
   inverse(index) {
+    console.log(index)
     let { imgsArrangeArr } = this.state;
-    console.log(imgsArrangeArr)
+    console.log(imgsArrangeArr);
     imgsArrangeArr[index].isInverse = !imgsArrangeArr[index].isInverse;
     this.setState({
       imgsArrangeArr
     });
+    console.log(this.state.imgsArrangeArr)
   }
   /*
     组件渲染完成后执行的操作
@@ -137,6 +139,7 @@ class App extends Component {
     this.rearrange(0);
   }
   render() {
+    console.log("执行了render")
     let imgFigure = [];
     imageData.forEach((value, index) => {
       if (!this.state.imgsArrangeArr[index]) {
@@ -163,7 +166,7 @@ class App extends Component {
     return (
       <div className="App" ref="app">
         <div className="img-sec">{imgFigure}</div>
-        <div className="controller-nav" />
+        <div className="controller-nav" ></div>
       </div>
     );
   }
