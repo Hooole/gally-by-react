@@ -1,3 +1,10 @@
+@font-face {
+  font-family: "icons-turn-arrow";
+  src: url("fonts/icons/turn-arrow.eot") format("embedded-opentype"),
+    url("fonts/icons/turn-arrow.woff") format("woff"),
+    url("fonts/icons/turn-arrow.ttf") format("truetype"),
+    url("fonts/icons/turn-arrow.svg") format("svg");
+}
 .App {
   position: relative;
   width: 100%;
@@ -12,54 +19,51 @@
   background: #dddddd;
   perspective: 1800px;
 }
-.img-sec .img-figure{
-  width:320px;
-  height:360px;
+.img-sec .img-figure {
+  width: 320px;
+  height: 360px;
   position: absolute;
-  margin:0;
-  padding:40px;
+  margin: 0;
+  padding: 40px;
   box-sizing: border-box;
   background-color: #ffffff;
-  cursor:pointer;
+  cursor: pointer;
   box-sizing: border-box;
   transform-style: preserve-3d;
   transform-origin: 0 50% 0;
-  transition: transform 0.6s ease-in-out, left 0.6s ease-in-out, top 0.6s ease-in-out;
+  transition: transform 0.6s ease-in-out, left 0.6s ease-in-out,
+    top 0.6s ease-in-out;
 }
 .is-inverse {
   transform: translate(320px) rotateY(180deg);
 }
-.img-sec figcaption{
+.img-sec figcaption {
   text-align: center;
 }
-.img-sec .img-title{
-  margin:20px 0 0 0;
-  color:#a7a0a2;
-  font-size:16px;
+.img-sec .img-title {
+  margin: 20px 0 0 0;
+  color: #a7a0a2;
+  font-size: 16px;
 }
 .img-back {
   position: absolute;
   top: 0;
   left: 0;
-
   width: 100%;
   height: 100%;
   padding: 50px 40px;
   overflow: auto;
-
   color: #a7a0a2;
   font-size: 22px;
   line-height: 1.25;
   text-align: left;
-
   background-color: #fff;
-
   box-sizing: border-box;
   transform: rotateY(180deg) translateZ(1px);
   backface-visibility: hidden;
 }
-.img-back p{
-  margin:0;
+.img-back p {
+  margin: 0;
 }
 .controller-nav {
   position: absolute;
@@ -68,4 +72,32 @@
   z-index: 99;
   width: 100%;
   text-align: center;
+}
+.controller-nav .controller-unit {
+  display: inline-block;
+  width: 30px;
+  height: 30px;
+  margin: 0 5px;
+  text-align: center;
+  vertical-align: middle;
+  cursor: pointer;
+  background-color: #aaaaaa;
+  border-radius: 50%;
+  transform: scale(0.5);
+  transition: transform .6s ease-in-out,background-color .3s 
+}
+.controller-nav .controller-unit.is-center {
+  transform: scale(1);
+  background-color: #888888;
+}
+.controller-nav .controller-unit.is-center::after{
+  font-family: "icons-turn-arrow";
+  content:"\e600";
+  color:#ffffff;
+  line-height:30px;
+  font-size:80%;
+}
+.controller-nav .controller-unit.is-inverse{
+  background-color: #555555;
+  transform: rotateY(180deg);
 }

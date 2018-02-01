@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { findDOMNode } from "react-dom";
 import ImgFigure from "./components/imgFigure.js";
+import ControllerUnits from "./components/controllerUnits.js";
 import { imageData } from "./data/imageDatas.js";
 import { getRangeRandom, get30Deg } from "./base/utils.js";
 import "./App.css";
@@ -55,7 +56,7 @@ class App extends Component {
     center[0] = {
       pos: centerPos,
       rotate: 0,
-      isCenter:true
+      isCenter: true
     };
     let imgsArrangeTopArr = [],
       topImgNum = Math.floor(Math.random() * 2), //取一个或者不取
@@ -69,7 +70,7 @@ class App extends Component {
           left: getRangeRandom(topPos.x[0], topPos.x[1])
         },
         rotate: get30Deg(),
-        isCenter:false
+        isCenter: false
       };
     });
     /*设置位于左右侧的图片位置信息*/
@@ -81,7 +82,7 @@ class App extends Component {
           left: getRangeRandom(xSec[0], xSec[1])
         },
         rotate: get30Deg(),
-        isCenter:false
+        isCenter: false
       };
     }
     if (imgsArrangeTopArr && imgsArrangeTopArr[0]) {
@@ -106,9 +107,10 @@ class App extends Component {
   /*
     *居中图片
     *params index 传入当前需要被居中的index的索引值
-  */ 
+  */
+
   center(index) {
-    this.rearrange(index)
+    this.rearrange(index);
   }
   /*
     组件渲染完成后执行的操作
@@ -146,10 +148,10 @@ class App extends Component {
     this.Constant.topPos.y[1] = halfAppH - halfImgH * 3;
 
     this.rearrange(0);
-
   }
   render() {
     let imgFigure = [];
+    let controllerUnits = [];
     imageData.forEach((value, index) => {
       if (!this.state.imgsArrangeArr[index]) {
         // eslint-disable-next-line
@@ -168,15 +170,23 @@ class App extends Component {
           key={index}
           ref={"imgFigure" + index}
           arrange={this.state.imgsArrangeArr[index]}
-          inverse= {this.inverse.bind(this,index)}
-          center = {this.center.bind(this,index)}
+          inverse={this.inverse.bind(this, index)}
+          center={this.center.bind(this, index)}
+        />
+      );
+      controllerUnits.push(
+        <ControllerUnits
+          key={index}
+          arrange={this.state.imgsArrangeArr[index]}
+          inverse={this.inverse.bind(this, index)}
+          center={this.center.bind(this, index)}
         />
       );
     });
     return (
       <div className="App" ref="app">
         <div className="img-sec">{imgFigure}</div>
-        <div className="controller-nav" ></div>
+        <div className="controller-nav">{controllerUnits}</div>
       </div>
     );
   }
